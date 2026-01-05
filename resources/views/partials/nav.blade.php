@@ -19,17 +19,18 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link {{ request()->is('naruci') ? 'active' : '' }}" href="/naruci">
+                    <a class="nav-link {{ request()->is('naruci') ? 'active' : '' }}" href="{{ route('naruci.create') }}">
                         <i class="fas fa-shopping-cart me-1"></i> Naruci proizvod
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link {{ request()->is('sirovine/stanje') ? 'active' : '' }}" href="/sirovine/stanje">
+                    <a class="nav-link {{ request()->is('sirovine/stanje') ? 'active' : '' }}" href="{{ route('sirovine.stanje') }}">
                         <i class="fas fa-chart-bar me-1"></i> Stanje sirovina
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link {{ request()->is('proizvodni-procesi*') ? 'active' : '' }}" href="/proizvodni-procesi">
+                    <a class="nav-link {{ request()->is('proizvodni-procesi*') || request()->is('admin/proizvodni-procesi*') ? 'active' : '' }}" 
+                       href="{{ route('proizvodni-procesi.index') }}">
                         <i class="fas fa-industry me-1"></i> Proizvodne serije
                     </a>
                 </li>
@@ -38,7 +39,7 @@
                 @auth
                     @if(auth()->user()->role === 'admin')
                         <li class="nav-item">
-                            <a class="nav-link {{ request()->is('admin*') ? 'active' : '' }}" href="{{ route('admin.index') }}">
+                            <a class="nav-link {{ request()->is('admin') && !request()->is('admin/*') ? 'active' : '' }}" href="{{ route('admin.index') }}">
                                 <i class="fas fa-cog me-1"></i> Admin Panel
                             </a>
                         </li>
@@ -88,7 +89,17 @@
                             @if(auth()->user()->role === 'admin')
                                 <li>
                                     <a class="dropdown-item" href="{{ route('admin.index') }}">
-                                        <i class="fas fa-cog me-2"></i> Admin Panel
+                                        <i class="fas fa-cog me-2"></i> Admin Dashboard
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" href="{{ route('admin.proizvodni-procesi.create') }}">
+                                        <i class="fas fa-plus-circle me-2"></i> Novi proizvodni proces
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" href="{{ route('admin.proizvodi.index') }}">
+                                        <i class="fas fa-box me-2"></i> Upravljaj proizvodima
                                     </a>
                                 </li>
                                 <li><hr class="dropdown-divider"></li>

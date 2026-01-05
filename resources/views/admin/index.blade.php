@@ -1,140 +1,52 @@
 @extends('layouts.app')
 
 @section('title', 'Admin Panel')
+
 @section('content')
-<div class="container">
-    <div class="row">
-        <div class="col-12">
-            <div class="card">
-                <div class="card-header d-flex justify-content-between align-items-center">
-                    <h4 class="mb-0"><i class="fas fa-cog me-2"></i> Administrativni Panel</h4>
-                    <span class="badge bg-danger">Administrator</span>
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-md-10">
+            <!-- Header -->
+            <div class="text-center mb-5">
+                <h1 class="display-4 text-primary mb-3">
+                    <i class="fas fa-crown me-2"></i>Admin Panel
+                </h1>
+                <p class="lead">Dobrodošli u administracioni panel Chocolate Factory</p>
+            </div>
+
+            <!-- User Info Card -->
+            <div class="card shadow-lg mb-5 border-0">
+                <div class="card-header bg-primary text-white py-3">
+                    <h4 class="mb-0">
+                        <i class="fas fa-user-shield me-2"></i>
+                        Informacije o nalogu
+                    </h4>
                 </div>
                 <div class="card-body">
-                    <div class="alert alert-success">
-                        <i class="fas fa-check-circle me-2"></i>
-                        Dobrodosli u Admin Panel, <strong>{{ Auth::user()->name }}</strong>!
-                    </div>
-                    
-                    <div class="row mt-4">
-                        <div class="col-md-3 mb-4">
-                            <div class="card bg-primary text-white">
-                                <div class="card-body text-center">
-                                    <h1 class="display-4">5</h1>
-                                    <p class="mb-0">Proizvoda</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-3 mb-4">
-                            <div class="card bg-success text-white">
-                                <div class="card-body text-center">
-                                    <h1 class="display-4">12</h1>
-                                    <p class="mb-0">Sirovina</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-3 mb-4">
-                            <div class="card bg-warning text-white">
-                                <div class="card-body text-center">
-                                    <h1 class="display-4">3</h1>
-                                    <p class="mb-0">Aktivne serije</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-3 mb-4">
-                            <div class="card bg-info text-white">
-                                <div class="card-body text-center">
-                                    <h1 class="display-4">47</h1>
-                                    <p class="mb-0">Narudžbine</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <h5 class="mt-4 mb-3">Brzi linkovi</h5>
                     <div class="row">
-                        <div class="col-md-4 mb-3">
-                            <a href="{{ route('admin.proizvodni-procesi') }}" class="card text-decoration-none">
-                                <div class="card-body text-center">
-                                    <i class="fas fa-industry fa-2x mb-2 text-primary"></i>
-                                    <h5>Proizvodni procesi</h5>
-                                    <p class="text-muted mb-0">Upravljaj proizvodnim serijama</p>
+                        <div class="col-md-6">
+                            <div class="d-flex align-items-center mb-4">
+                                <div class="flex-shrink-0">
+                                    <i class="fas fa-user-circle fa-3x text-primary"></i>
                                 </div>
-                            </a>
-                        </div>
-                        <div class="col-md-4 mb-3">
-                            <a href="/sirovine" class="card text-decoration-none">
-                                <div class="card-body text-center">
-                                    <i class="fas fa-boxes fa-2x mb-2 text-success"></i>
-                                    <h5>Sirovine</h5>
-                                    <p class="text-muted mb-0">Pregled i upravljanje sirovinama</p>
-                                </div>
-                            </a>
-                        </div>
-                        <div class="col-md-4 mb-3">
-                            <a href="/proizvodi" class="card text-decoration-none">
-                                <div class="card-body text-center">
-                                    <i class="fas fa-cookie-bite fa-2x mb-2 text-warning"></i>
-                                    <h5>Proizvodi</h5>
-                                    <p class="text-muted mb-0">Upravljaj proizvodima</p>
-                                </div>
-                            </a>
-                        </div>
-                    </div>
-                    
-                    <div class="row mt-4">
-                        <div class="col-md-4 mb-3">
-                            <div class="card">
-                                <div class="card-body">
-                                    <h6>Korisnici sistema</h6>
-                                    <ul class="list-group list-group-flush">
-                                        @php
-                                            $users = \App\Models\User::take(5)->get();
-                                        @endphp
-                                        @foreach($users as $user)
-                                        <li class="list-group-item d-flex justify-content-between align-items-center">
-                                            {{ $user->name }}
-                                            <span class="badge {{ $user->role === 'admin' ? 'bg-danger' : 'bg-secondary' }}">
-                                                {{ $user->role }}
-                                            </span>
-                                        </li>
-                                        @endforeach
-                                    </ul>
+                                <div class="flex-grow-1 ms-3">
+                                    <h5 class="mb-0">{{ auth()->user()->name }}</h5>
+                                    <p class="text-muted mb-0">{{ auth()->user()->email }}</p>
                                 </div>
                             </div>
                         </div>
-                        
-                        <div class="col-md-8 mb-3">
-                            <div class="card">
-                                <div class="card-body">
-                                    <h6>Sistemske informacije</h6>
-                                    <div class="table-responsive">
-                                        <table class="table table-sm">
-                                            <tbody>
-                                                <tr>
-                                                    <td><strong>Server vreme:</strong></td>
-                                                    <td>{{ now()->format('d.m.Y H:i:s') }}</td>
-                                                </tr>
-                                                <tr>
-                                                    <td><strong>PHP verzija:</strong></td>
-                                                    <td>{{ phpversion() }}</td>
-                                                </tr>
-                                                <tr>
-                                                    <td><strong>Laravel verzija:</strong></td>
-                                                    <td>{{ app()->version() }}</td>
-                                                </tr>
-                                                <tr>
-                                                    <td><strong>Ulogovani korisnik:</strong></td>
-                                                    <td>{{ Auth::user()->name }} ({{ Auth::user()->email }})</td>
-                                                </tr>
-                                                <tr>
-                                                    <td><strong>Korisnička uloga:</strong></td>
-                                                    <td>
-                                                        <span class="badge bg-danger">Administrator</span>
-                                                    </td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
+                        <div class="col-md-6">
+                            <div class="row">
+                                <div class="col-6">
+                                    <div class="border rounded p-3 text-center mb-3">
+                                        <div class="text-muted small">Uloga</div>
+                                        <div class="h5 mb-0 text-primary">{{ auth()->user()->role }}</div>
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="border rounded p-3 text-center mb-3">
+                                        <div class="text-muted small">Član od</div>
+                                        <div class="h5 mb-0">{{ auth()->user()->created_at->format('d.m.Y.') }}</div>
                                     </div>
                                 </div>
                             </div>
@@ -142,7 +54,194 @@
                     </div>
                 </div>
             </div>
+
+            <!-- Quick Stats -->
+            <div class="row mb-5">
+                <div class="col-md-3 col-6 mb-4">
+                    <div class="card border-0 shadow-sm h-100 text-center">
+                        <div class="card-body">
+                            <i class="fas fa-industry fa-2x text-primary mb-3"></i>
+                            <h3 class="mb-1">{{ \App\Models\ProizvodniProces::count() }}</h3>
+                            <p class="text-muted mb-0">Procesa</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-3 col-6 mb-4">
+                    <div class="card border-0 shadow-sm h-100 text-center">
+                        <div class="card-body">
+                            <i class="fas fa-box fa-2x text-success mb-3"></i>
+                            <h3 class="mb-1">{{ \App\Models\Proizvod::count() }}</h3>
+                            <p class="text-muted mb-0">Proizvoda</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-3 col-6 mb-4">
+                    <div class="card border-0 shadow-sm h-100 text-center">
+                        <div class="card-body">
+                            <i class="fas fa-boxes fa-2x text-warning mb-3"></i>
+                            <h3 class="mb-1">{{ \App\Models\Sirovina::count() }}</h3>
+                            <p class="text-muted mb-0">Sirovina</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-3 col-6 mb-4">
+                    <div class="card border-0 shadow-sm h-100 text-center">
+                        <div class="card-body">
+                            <i class="fas fa-cookie-bite fa-2x text-danger mb-3"></i>
+                            <h3 class="mb-1">{{ \App\Models\VrstaCokolade::count() }}</h3>
+                            <p class="text-muted mb-0">Vrsta čokolade</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Quick Links -->
+            <div class="row">
+                <div class="col-12">
+                    <div class="card border-0 shadow-sm">
+                        <div class="card-header bg-light">
+                            <h5 class="mb-0">
+                                <i class="fas fa-bolt me-2"></i>
+                                Brzi linkovi
+                            </h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="row g-3">
+                                <div class="col-md-3 col-6">
+                                    <a href="{{ route('admin.proizvodni-procesi.index') }}" class="btn btn-outline-primary w-100 h-100 d-flex flex-column align-items-center justify-content-center p-3">
+                                        <i class="fas fa-industry fa-2x mb-2"></i>
+                                        <span>Proizvodni procesi</span>
+                                    </a>
+                                </div>
+                                <div class="col-md-3 col-6">
+                                    <a href="{{ route('admin.proizvodi.index') }}" class="btn btn-outline-success w-100 h-100 d-flex flex-column align-items-center justify-content-center p-3">
+                                        <i class="fas fa-box fa-2x mb-2"></i>
+                                        <span>Proizvodi</span>
+                                    </a>
+                                </div>
+                                <div class="col-md-3 col-6">
+                                    <a href="{{ route('admin.sirovine.index') }}" class="btn btn-outline-warning w-100 h-100 d-flex flex-column align-items-center justify-content-center p-3">
+                                        <i class="fas fa-boxes fa-2x mb-2"></i>
+                                        <span>Sirovine</span>
+                                    </a>
+                                </div>
+                                <div class="col-md-3 col-6">
+                                    <a href="{{ route('admin.vrste-cokolade.index') }}" class="btn btn-outline-danger w-100 h-100 d-flex flex-column align-items-center justify-content-center p-3">
+                                        <i class="fas fa-cookie-bite fa-2x mb-2"></i>
+                                        <span>Vrste čokolade</span>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Recent Activity -->
+            <div class="row mt-5">
+                <div class="col-12">
+                    <div class="card border-0 shadow-sm">
+                        <div class="card-header bg-light">
+                            <h5 class="mb-0">
+                                <i class="fas fa-history me-2"></i>
+                                Nedavna aktivnost
+                            </h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="list-group list-group-flush">
+                                @php
+                                    $recentProcesses = \App\Models\ProizvodniProces::with('proizvod')
+                                        ->orderBy('created_at', 'desc')
+                                        ->limit(5)
+                                        ->get();
+                                @endphp
+                                
+                                @forelse($recentProcesses as $proces)
+                                <a href="{{ route('admin.proizvodni-procesi.show', $proces->id) }}" class="list-group-item list-group-item-action border-0 py-3">
+                                    <div class="d-flex w-100 justify-content-between">
+                                        <div>
+                                            <i class="fas fa-industry text-primary me-2"></i>
+                                            <strong>Serija #{{ $proces->broj_serije }}</strong> - {{ $proces->proizvod->naziv ?? 'N/A' }}
+                                        </div>
+                                        <small class="text-muted">{{ $proces->created_at->diffForHumans() }}</small>
+                                    </div>
+                                    <div class="mt-2">
+                                        <span class="badge 
+                                            @if($proces->status == 'zavrseno') bg-success
+                                            @elseif($proces->status == 'u_toku') bg-warning text-dark
+                                            @else bg-secondary @endif">
+                                            {{ ucfirst(str_replace('_', ' ', $proces->status)) }}
+                                        </span>
+                                        <span class="text-muted ms-3">
+                                            <i class="fas fa-calendar-alt me-1"></i>
+                                            {{ date('d.m.Y.', strtotime($proces->datum_pocetka)) }}
+                                        </span>
+                                    </div>
+                                </a>
+                                @empty
+                                <div class="list-group-item border-0 py-3 text-center text-muted">
+                                    Nema nedavne aktivnosti.
+                                </div>
+                                @endforelse
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Admin Actions - IZMENJENO: samo "Novi proizvodni proces" dugme -->
+            <div class="row mt-4">
+                <div class="col-12">
+                    <div class="d-flex justify-content-center">
+                        <a href="{{ route('admin.proizvodni-procesi.create') }}" class="btn btn-primary btn-lg">
+                            <i class="fas fa-plus-circle me-2"></i> Novi proizvodni proces
+                        </a>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>
+
+<style>
+    .card {
+        border-radius: 10px;
+        transition: transform 0.2s;
+    }
+    
+    .card:hover {
+        transform: translateY(-3px);
+    }
+    
+    .list-group-item:hover {
+        background-color: #f8f9fa;
+    }
+    
+    .btn-outline-primary, .btn-outline-success, .btn-outline-warning, .btn-outline-danger {
+        transition: all 0.3s;
+    }
+    
+    .btn-outline-primary:hover {
+        background-color: #0d6efd;
+        color: white;
+    }
+    
+    .btn-outline-success:hover {
+        background-color: #198754;
+        color: white;
+    }
+    
+    .btn-outline-warning:hover {
+        background-color: #ffc107;
+        color: black;
+    }
+    
+    .btn-outline-danger:hover {
+        background-color: #dc3545;
+        color: white;
+    }
+</style>
 @endsection
