@@ -9,48 +9,28 @@ class ProizvodniProces extends Model
 {
     use HasFactory;
 
-    protected $table = 'proizvodni_proces';
+    protected $table = 'proizvodni_proces'; // Tvoja tabela
 
     protected $fillable = [
-        'broj_serije',
+        'serijski_broj',
         'proizvod_id',
-        'vrsta_cokolade_id',
+        'vrsta_cokolade_id', // OBAVEZNO dodati ovde
+        'kolicina_proizvoda',
         'datum_pocetka',
         'datum_zavrsetka',
         'status',
-        'kolicina_proizvedena'
+        'napomena',
     ];
 
-    protected $casts = [
-        'datum_pocetka' => 'datetime',
-        'datum_zavrsetka' => 'datetime',
-    ];
-
-    // DODAJ OVE RELACIJE:
-    
-    /**
-     * Relacija sa proizvodom
-     */
+    // Relacija ka proizvodu
     public function proizvod()
     {
         return $this->belongsTo(Proizvod::class);
     }
 
-    /**
-     * Relacija sa vrstom čokolade
-     */
+    // Relacija ka vrsti čokolade
     public function vrstaCokolade()
     {
-        return $this->belongsTo(VrstaCokolade::class);
-    }
-
-    /**
-     * Relacija sa sirovinama (many-to-many)
-     */
-    public function sirovine()
-    {
-        return $this->belongsToMany(Sirovina::class, 'proizvodni_proces_sirovina')
-                    ->withPivot('kolicina_utrosena')
-                    ->withTimestamps();
+        return $this->belongsTo(VrstaCokolade::class, 'vrsta_cokolade_id');
     }
 }

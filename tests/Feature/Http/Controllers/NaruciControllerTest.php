@@ -2,19 +2,22 @@
 
 namespace Tests\Feature\Http\Controllers;
 
-use PHPUnit\Framework\Attributes\Test;
 use Tests\TestCase;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 
-/**
- * @see \App\Http\Controllers\NaruciController
- */
-final class NaruciControllerTest extends TestCase
+class NaruciControllerTest extends TestCase
 {
-    #[Test]
-    public function web_behaves_as_expected(): void
-    {
-        $response = $this->get(route('narucis.web'));
+    use RefreshDatabase;
 
-        $response->assertSessionHas('public', $public);
+    /** @test */
+    public function web_behaves_as_expected()
+    {
+        // Користи исправну руту (naruci.create уместо narucis.web)
+        $response = $this->get('/naruci');
+        
+        $response->assertStatus(200);
+        // Додај и ове асерције ако желиш
+        // $response->assertViewIs('naruci.create');
+        // $response->assertSee('Naručivanje');
     }
 }

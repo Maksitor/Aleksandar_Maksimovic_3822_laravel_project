@@ -9,31 +9,21 @@ class Narudzbina extends Model
 {
     use HasFactory;
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
     protected $fillable = [
-        'broj_narudzbine',
         'ime_kupca',
         'email',
-        'adresa',
         'telefon',
+        'adresa',
+        'napomena',
+        'broj_narudzbine',
+        'proizvod_id',
+        'kolicina',
         'ukupna_cena',
-        'status',
+        'status'
     ];
 
-    /**
-     * Get the attributes that should be cast.
-     *
-     * @return array<string, string>
-     */
-    protected function casts(): array
+    public function proizvod()
     {
-        return [
-            'id' => 'integer',
-            'ukupna_cena' => 'decimal:2',
-        ];
+        return $this->belongsTo(Proizvod::class);
     }
 }

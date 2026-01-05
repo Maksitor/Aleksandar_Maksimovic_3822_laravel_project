@@ -61,8 +61,3 @@ Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () 
     Route::resource('narudzbine', NarudzbinaController::class);
 });
 
-// ------------------- ZA SADA - JAVNE RUTE ZA TESTIRANJE -------------------
-// (komentariši ove kada završiš testiranje)
-Route::get('/proizvodi', [ProizvodController::class, 'index'])->name('proizvodi.index');
-Route::get('/sirovine', [SirovinaController::class, 'index'])->name('sirovine.index');
-Route::get('/proizvodni-procesi', [ProizvodniProcesController::class, 'index'])->name('proizvodni-procesi.index');

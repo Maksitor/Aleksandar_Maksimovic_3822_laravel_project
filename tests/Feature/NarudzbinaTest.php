@@ -4,6 +4,7 @@ namespace Tests\Feature;
 
 use Tests\TestCase;
 use App\Models\Proizvod;
+use App\Models\Narudzbina; // ДОДАЈ ОВО!
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class NarudzbinaTest extends TestCase
@@ -26,7 +27,9 @@ class NarudzbinaTest extends TestCase
             'adresa' => 'Beograd'
         ]);
 
+        $response->assertRedirect();
         $response->assertSessionHas('success');
+        
         $this->assertDatabaseHas('narudzbine', [
             'ime_kupca' => 'Petar Petrovic'
         ]);

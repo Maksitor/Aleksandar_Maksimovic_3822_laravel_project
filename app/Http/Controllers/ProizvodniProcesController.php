@@ -13,23 +13,24 @@ class ProizvodniProcesController extends Controller
     // ----------- JAVNE METODE (za sve korisnike) -----------
     
     /**
-     * Prikaži listu proizvodnih procesa - JAVNA STRANA
-     * Ova metoda se poziva kada neko ode na /proizvodni-procesi
+     * JAVNA STRANA: Prikaži listu proizvodnih procesa
+     * Ova metoda se poziva za /proizvodni-procesi (javni pristup)
      */
-    public function index()
+    public function indexPublic()
     {
-        // Ovo je VAŠ POSTOJEĆI PUBLIC VIEW
-        $procesi = ProizvodniProces::with(['proizvod', 'vrstaCokolade'])->paginate(10);
+        $procesi = ProizvodniProces::with(['proizvod', 'vrstaCokolade'])
+            ->where('status', 'zavrseno') // Samo završene za javnost
+            ->orderBy('datum_zavrsetka', 'desc')
+            ->paginate(10);
         return view('proizvodni-procesi.index', compact('procesi'));
     }
 
     /**
-     * Prikaži pojedinačni proces - JAVNI DETALJI
-     * Ova metoda se poziva kada neko ode na /proizvodni-procesi/{id}
+     * JAVNA STRANA: Prikaži pojedinačni proces
+     * Ova metoda se poziva za /proizvodni-procesi/{id} (javni pristup)
      */
     public function show($id)
     {
-        // Ovo je VAŠ POSTOJEĆI PUBLIC SHOW
         $proces = ProizvodniProces::with(['proizvod', 'vrstaCokolade'])->findOrFail($id);
         return view('proizvodni-procesi.show', compact('proces'));
     }
@@ -37,13 +38,13 @@ class ProizvodniProcesController extends Controller
     // ----------- ADMIN METODE (samo za admin panel) -----------
     
     /**
-     * ADMIN: Prikaži listu svih procesa (admin panel)
-     * Ova metoda se poziva kada admin ode na /admin/proizvodni-procesi
+     * ADMIN: Prikaži listu svih procesa
+     * Ova metoda se poziva za /admin/proizvodni-procesi
      */
-    public function adminIndex()
+    public function index()
     {
         $procesi = ProizvodniProces::with(['proizvod', 'vrstaCokolade'])->paginate(10);
-        return view('admin.proizvodni-procesi.index', compact('procesi'));
+        return view('proizvodni-procesi.index', compact('procesi'));
     }
 
     /**
@@ -81,8 +82,7 @@ class ProizvodniProcesController extends Controller
     }
 
     /**
-     * ADMIN: Prikaži detalje procesa (admin panel)
-     * Ova metoda se poziva kada admin klikne na DETALJI dugme
+     * ADMIN: Prikaži detalje procesa
      */
     public function adminShow($id)
     {

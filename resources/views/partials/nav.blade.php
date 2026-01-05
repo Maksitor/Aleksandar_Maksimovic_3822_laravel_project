@@ -29,10 +29,17 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link {{ request()->is('proizvodni-procesi*') || request()->is('admin/proizvodni-procesi*') ? 'active' : '' }}" 
-                       href="{{ route('proizvodni-procesi.index') }}">
-                        <i class="fas fa-industry me-1"></i> Proizvodne serije
-                    </a>
+                    @if(auth()->check() && auth()->user()->role === 'admin')
+                        <a class="nav-link {{ request()->is('admin/proizvodni-procesi*') ? 'active' : '' }}" 
+                           href="{{ route('admin.proizvodni-procesi.index') }}">
+                            <i class="fas fa-industry me-1"></i> Proizvodne serije
+                        </a>
+                    @else
+                        <a class="nav-link {{ request()->is('proizvodni-procesi*') ? 'active' : '' }}" 
+                           href="{{ route('proizvodni-procesi.index') }}">
+                            <i class="fas fa-industry me-1"></i> Proizvodne serije
+                        </a>
+                    @endif
                 </li>
 
                 <!-- ADMIN PANEL (SAMO ADMIN) -->

@@ -54,31 +54,27 @@
                             @forelse($procesi as $proces)
                                 <tr>
                                     <td>{{ $loop->iteration }}</td>
-                                    <td class="fw-bold">{{ $proces->broj_serije ?? 'SER-' . $proces['id'] }}</td>
-                                    <td>{{ $proces->proizvod->naziv ?? ($proces['naziv'] ?? 'N/A') }}</td>
-                                    <td>{{ $proces->vrstaCokolade->naziv ?? ($proces['vrsta'] ?? 'N/A') }}</td>
+                                    <td class="fw-bold">{{ $proces->serijski_broj }}</td>
+                                    <td>{{ $proces->proizvod->naziv ?? 'N/A' }}</td>
+                                    <td>{{ $proces->vrstaCokolade->naziv ?? 'N/A' }}</td>
                                     <td>
-                                        @if(isset($proces->datum_pocetka))
-                                            {{ $proces->datum_pocetka->format('d.m.Y.') }}
-                                        @elseif(isset($proces['datum']))
-                                            {{ date('d.m.Y.', strtotime($proces['datum'])) }}
+                                        @if($proces->datum_pocetka)
+                                            {{ \Carbon\Carbon::parse($proces->datum_pocetka)->format('d.m.Y.') }}
                                         @else
                                             N/A
                                         @endif
                                     </td>
                                     <td>
-                                        @if(isset($proces->datum_zavrsetka))
-                                            {{ $proces->datum_zavrsetka->format('d.m.Y.') }}
-                                        @elseif(isset($proces['datum_zavrsetka']))
-                                            {{ date('d.m.Y.', strtotime($proces['datum_zavrsetka'])) }}
+                                        @if($proces->datum_zavrsetka)
+                                            {{ \Carbon\Carbon::parse($proces->datum_zavrsetka)->format('d.m.Y.') }}
                                         @else
                                             <span class="text-muted">-</span>
                                         @endif
                                     </td>
-                                    <td>{{ $proces->kolicina_proizvedena ?? ($proces['kolicina'] ?? 0) }} kom</td>
+                                    <td>{{ $proces->kolicina_proizvoda }} kom</td>
                                     <td>
                                         @php
-                                            $status = $proces->status ?? $proces['status'] ?? 'planirano';
+                                            $status = $proces->status;
                                         @endphp
                                         @if($status === 'zavrseno' || $status === 'završeno')
                                             <span class="badge bg-success">Završeno</span>
@@ -93,15 +89,15 @@
                                     @auth
                                         @if(auth()->user()->role === 'admin')
                                             <td>
-                                                <a href="{{ route('admin.proizvodni-procesi.show', $proces->id ?? $proces['id']) }}" class="btn btn-sm btn-outline-primary">
+                                                <a href="{{ route('admin.proizvodni-procesi.show', $proces->id) }}" class="btn btn-sm btn-outline-primary">
                                                     Detalji
                                                 </a>
 
-                                                <a href="{{ route('admin.proizvodni-procesi.edit', $proces->id ?? $proces['id']) }}" class="btn btn-sm btn-outline-warning">
+                                                <a href="{{ route('admin.proizvodni-procesi.edit', $proces->id) }}" class="btn btn-sm btn-outline-warning">
                                                     Izmeni
                                                 </a>
 
-                                                <form action="{{ route('admin.proizvodni-procesi.destroy', $proces->id ?? $proces['id']) }}" method="POST" class="d-inline">
+                                                <form action="{{ route('admin.proizvodni-procesi.destroy', $proces->id) }}" method="POST" class="d-inline">
                                                     @csrf
                                                     @method('DELETE')
                                                     <button type="submit" class="btn btn-sm btn-outline-danger" onclick="return confirm('Da li ste sigurni?')">
@@ -121,7 +117,7 @@
                     </table>
                 </div>
 
-                {{-- Paginacija - samo ako postoji i ako je to Eloquent kolekcija --}}
+                {{-- Paginacija --}}
                 @if(isset($procesi) && method_exists($procesi, 'hasPages') && $procesi->hasPages())
                     <div class="d-flex justify-content-center mt-4">
                         {{ $procesi->links() }}

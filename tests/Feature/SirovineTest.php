@@ -15,9 +15,10 @@ class SirovineTest extends TestCase
     {
         Sirovina::factory()->count(3)->create();
 
-        $response = $this->get('/sirovine');
+        // Користи исправну јавну руту
+        $response = $this->get('/sirovine/stanje'); // ПРОМЕНИ овде
 
         $response->assertStatus(200);
-        $response->assertSee('Stanje sirovina');
+        $response->assertSee('Stanje sirovina'); // Провери да ли овај текст стварно постоји у view-у
     }
 }
