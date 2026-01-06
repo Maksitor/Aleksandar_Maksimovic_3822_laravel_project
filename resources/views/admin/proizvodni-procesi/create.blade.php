@@ -6,6 +6,7 @@
 <div class="container py-4">
     <div class="row justify-content-center">
         <div class="col-md-10">
+
             <!-- Breadcrumb -->
             <nav aria-label="breadcrumb" class="mb-4">
                 <ol class="breadcrumb">
@@ -28,23 +29,28 @@
             <!-- Form -->
             <div class="card shadow-sm border-0">
                 <div class="card-body p-4">
+
                     <form action="{{ route('admin.proizvodni-procesi.store') }}" method="POST">
                         @csrf
 
                         <div class="row">
-                            <!-- Left column -->
+                            <!-- LEFT COLUMN -->
                             <div class="col-md-6">
-                                <!-- Broj serije -->
+
+                                <!-- Serijski broj -->
                                 <div class="mb-4">
-                                    <label for="broj_serije" class="form-label fw-bold">
+                                    <label for="serijski_broj" class="form-label fw-bold">
                                         <i class="fas fa-hashtag text-primary me-1"></i>
                                         Broj serije *
                                     </label>
-                                    <input type="text" class="form-control form-control-lg @error('broj_serije') is-invalid @enderror" 
-                                           id="broj_serije" name="broj_serije" 
-                                           value="{{ old('broj_serije') }}" 
-                                           placeholder="Npr: SER-2024-001" required>
-                                    @error('broj_serije')
+                                    <input type="text"
+                                           class="form-control form-control-lg @error('serijski_broj') is-invalid @enderror"
+                                           id="serijski_broj"
+                                           name="serijski_broj"
+                                           value="{{ old('serijski_broj') }}"
+                                           placeholder="Npr: SER-2024-001"
+                                           required>
+                                    @error('serijski_broj')
                                         <div class="invalid-feedback">{{ $message }}</div>
                                     @enderror
                                     <small class="form-text text-muted">Unesite jedinstveni broj serije</small>
@@ -56,11 +62,12 @@
                                         <i class="fas fa-box text-primary me-1"></i>
                                         Proizvod *
                                     </label>
-                                    <select class="form-select form-select-lg @error('proizvod_id') is-invalid @enderror" 
+                                    <select class="form-select form-select-lg @error('proizvod_id') is-invalid @enderror"
                                             id="proizvod_id" name="proizvod_id" required>
                                         <option value="">-- Izaberite proizvod --</option>
                                         @foreach($proizvodi as $proizvod)
-                                            <option value="{{ $proizvod->id }}" {{ old('proizvod_id') == $proizvod->id ? 'selected' : '' }}>
+                                            <option value="{{ $proizvod->id }}"
+                                                {{ old('proizvod_id') == $proizvod->id ? 'selected' : '' }}>
                                                 {{ $proizvod->naziv }}
                                             </option>
                                         @endforeach
@@ -76,11 +83,12 @@
                                         <i class="fas fa-cookie-bite text-primary me-1"></i>
                                         Vrsta čokolade *
                                     </label>
-                                    <select class="form-select form-select-lg @error('vrsta_cokolade_id') is-invalid @enderror" 
+                                    <select class="form-select form-select-lg @error('vrsta_cokolade_id') is-invalid @enderror"
                                             id="vrsta_cokolade_id" name="vrsta_cokolade_id" required>
                                         <option value="">-- Izaberite vrstu čokolade --</option>
                                         @foreach($vrste as $vrsta)
-                                            <option value="{{ $vrsta->id }}" {{ old('vrsta_cokolade_id') == $vrsta->id ? 'selected' : '' }}>
+                                            <option value="{{ $vrsta->id }}"
+                                                {{ old('vrsta_cokolade_id') == $vrsta->id ? 'selected' : '' }}>
                                                 {{ $vrsta->naziv }}
                                             </option>
                                         @endforeach
@@ -89,19 +97,24 @@
                                         <div class="invalid-feedback">{{ $message }}</div>
                                     @enderror
                                 </div>
+
                             </div>
 
-                            <!-- Right column -->
+                            <!-- RIGHT COLUMN -->
                             <div class="col-md-6">
+
                                 <!-- Datum početka -->
                                 <div class="mb-4">
                                     <label for="datum_pocetka" class="form-label fw-bold">
                                         <i class="fas fa-calendar-alt text-primary me-1"></i>
                                         Datum početka *
                                     </label>
-                                    <input type="date" class="form-control form-control-lg @error('datum_pocetka') is-invalid @enderror" 
-                                           id="datum_pocetka" name="datum_pocetka" 
-                                           value="{{ old('datum_pocetka', date('Y-m-d')) }}" required>
+                                    <input type="date"
+                                           class="form-control form-control-lg @error('datum_pocetka') is-invalid @enderror"
+                                           id="datum_pocetka"
+                                           name="datum_pocetka"
+                                           value="{{ old('datum_pocetka', date('Y-m-d')) }}"
+                                           required>
                                     @error('datum_pocetka')
                                         <div class="invalid-feedback">{{ $message }}</div>
                                     @enderror
@@ -113,8 +126,10 @@
                                         <i class="fas fa-calendar-check text-primary me-1"></i>
                                         Datum završetka
                                     </label>
-                                    <input type="date" class="form-control form-control-lg @error('datum_zavrsetka') is-invalid @enderror" 
-                                           id="datum_zavrsetka" name="datum_zavrsetka" 
+                                    <input type="date"
+                                           class="form-control form-control-lg @error('datum_zavrsetka') is-invalid @enderror"
+                                           id="datum_zavrsetka"
+                                           name="datum_zavrsetka"
                                            value="{{ old('datum_zavrsetka') }}">
                                     @error('datum_zavrsetka')
                                         <div class="invalid-feedback">{{ $message }}</div>
@@ -128,7 +143,7 @@
                                         <i class="fas fa-tasks text-primary me-1"></i>
                                         Status *
                                     </label>
-                                    <select class="form-select form-select-lg @error('status') is-invalid @enderror" 
+                                    <select class="form-select form-select-lg @error('status') is-invalid @enderror"
                                             id="status" name="status" required>
                                         <option value="">-- Izaberite status --</option>
                                         <option value="planiran" {{ old('status') == 'planiran' ? 'selected' : '' }}>Planirano</option>
@@ -139,49 +154,58 @@
                                         <div class="invalid-feedback">{{ $message }}</div>
                                     @enderror
                                 </div>
+
                             </div>
                         </div>
 
-                        <!-- Bottom row -->
+                        <!-- BOTTOM ROW -->
                         <div class="row">
                             <div class="col-md-6">
-                                <!-- Količina proizvedena -->
+
+                                <!-- Količina proizvoda -->
                                 <div class="mb-4">
-                                    <label for="kolicina_proizvedena" class="form-label fw-bold">
+                                    <label for="kolicina_proizvoda" class="form-label fw-bold">
                                         <i class="fas fa-cubes text-primary me-1"></i>
                                         Količina proizvedena (kom) *
                                     </label>
-                                    <input type="number" class="form-control form-control-lg @error('kolicina_proizvedena') is-invalid @enderror" 
-                                           id="kolicina_proizvedena" name="kolicina_proizvedena" 
-                                           value="{{ old('kolicina_proizvedena', 100) }}" 
-                                           min="1" required>
-                                    @error('kolicina_proizvedena')
+                                    <input type="number"
+                                           class="form-control form-control-lg @error('kolicina_proizvoda') is-invalid @enderror"
+                                           id="kolicina_proizvoda"
+                                           name="kolicina_proizvoda"
+                                           value="{{ old('kolicina_proizvoda', 100) }}"
+                                           min="1"
+                                           required>
+                                    @error('kolicina_proizvoda')
                                         <div class="invalid-feedback">{{ $message }}</div>
                                     @enderror
                                     <small class="form-text text-muted">Unesite broj komada</small>
                                 </div>
+
                             </div>
 
                             <div class="col-md-6">
+
                                 <!-- Ukupna cena -->
                                 <div class="mb-4">
                                     <label for="ukupna_cena" class="form-label fw-bold">
                                         <i class="fas fa-money-bill-wave text-primary me-1"></i>
                                         Ukupna cena (RSD)
                                     </label>
-                                    <input type="number" step="0.01" class="form-control form-control-lg @error('ukupna_cena') is-invalid @enderror" 
-                                           id="ukupna_cena" name="ukupna_cena" 
-                                           value="{{ old('ukupna_cena') }}" 
+                                    <input type="number" step="0.01"
+                                           class="form-control form-control-lg @error('ukupna_cena') is-invalid @enderror"
+                                           id="ukupna_cena" name="ukupna_cena"
+                                           value="{{ old('ukupna_cena') }}"
                                            min="0" placeholder="0.00">
                                     @error('ukupna_cena')
                                         <div class="invalid-feedback">{{ $message }}</div>
                                     @enderror
                                     <small class="form-text text-muted">Unesite ukupnu cenu proizvodnje</small>
                                 </div>
+
                             </div>
                         </div>
 
-                        <!-- Additional section for sirovine (if you want to use it later) -->
+                        <!-- INFO CARD -->
                         <div class="row mb-4">
                             <div class="col-12">
                                 <div class="card border-0 bg-light">
@@ -198,20 +222,24 @@
                             </div>
                         </div>
 
-                        <!-- Form buttons -->
+                        <!-- BUTTONS -->
                         <div class="d-flex justify-content-between align-items-center mt-5 pt-4 border-top">
-                            <a href="{{ route('admin.proizvodni-procesi.index') }}" class="btn btn-outline-secondary btn-lg">
+                            <a href="{{ route('admin.proizvodni-procesi.index') }}"
+                               class="btn btn-outline-secondary btn-lg">
                                 <i class="fas fa-arrow-left me-2"></i> Otkaži
                             </a>
+
                             <button type="submit" class="btn btn-success btn-lg px-5">
                                 <i class="fas fa-save me-2"></i> Kreiraj proces
                             </button>
                         </div>
+
                     </form>
+
                 </div>
             </div>
 
-            <!-- Quick tips -->
+            <!-- Tips -->
             <div class="card border-0 bg-light mt-4">
                 <div class="card-body">
                     <h6 class="fw-bold mb-3">
@@ -226,68 +254,49 @@
                     </ul>
                 </div>
             </div>
+
         </div>
     </div>
 </div>
 
+<!-- STYLING -->
 <style>
     .form-control-lg, .form-select-lg {
         border-radius: 8px;
         border: 2px solid #e9ecef;
         transition: all 0.3s;
     }
-    
     .form-control-lg:focus, .form-select-lg:focus {
         border-color: #0d6efd;
-        box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
+        box-shadow: 0 0 0 0.25rem rgba(13,110,253,0.25);
     }
-    
     .btn-lg {
         border-radius: 8px;
         padding: 0.75rem 1.5rem;
     }
-    
-    .card {
-        border-radius: 12px;
-    }
-    
-    .bg-light {
-        background-color: #f8f9fa !important;
-    }
-    
-    .form-label {
-        color: #495057;
-    }
-    
-    .text-muted {
-        color: #6c757d !important;
-    }
+    .card { border-radius: 12px; }
 </style>
 
+<!-- SCRIPT -->
 <script>
-    // Auto-set end date to 7 days from start date
     document.getElementById('datum_pocetka').addEventListener('change', function() {
         const startDate = new Date(this.value);
         const endDateInput = document.getElementById('datum_zavrsetka');
-        
+
         if (!endDateInput.value) {
-            // Add 7 days to start date
             startDate.setDate(startDate.getDate() + 7);
-            const formattedDate = startDate.toISOString().split('T')[0];
-            endDateInput.value = formattedDate;
+            endDateInput.value = startDate.toISOString().split('T')[0];
         }
     });
-    
-    // Auto-calculate total price based on quantity
-    document.getElementById('kolicina_proizvedena').addEventListener('input', function() {
+
+    document.getElementById('kolicina_proizvoda').addEventListener('input', function() {
         const quantity = this.value;
         const priceInput = document.getElementById('ukupna_cena');
-        
-        // If price is empty, suggest a price (e.g., 50 RSD per unit)
+
         if (!priceInput.value && quantity > 0) {
-            const suggestedPrice = quantity * 50;
-            priceInput.value = suggestedPrice.toFixed(2);
+            priceInput.value = (quantity * 50).toFixed(2);
         }
     });
 </script>
+
 @endsection

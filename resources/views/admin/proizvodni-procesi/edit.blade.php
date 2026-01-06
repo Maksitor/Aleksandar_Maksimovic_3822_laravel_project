@@ -7,7 +7,6 @@
     <div class="row justify-content-center">
         <div class="col-md-10">
 
-            <!-- Breadcrumb -->
             <nav aria-label="breadcrumb" class="mb-4">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="{{ route('admin.index') }}">Admin Panel</a></li>
@@ -16,7 +15,6 @@
                 </ol>
             </nav>
 
-            <!-- Header -->
             <div class="card shadow-sm border-0 mb-4">
                 <div class="card-header bg-warning text-dark d-flex justify-content-between align-items-center py-3">
                     <h4 class="mb-0"><i class="fas fa-edit me-2"></i> Izmena proizvodnog procesa</h4>
@@ -24,7 +22,6 @@
                 </div>
             </div>
 
-            <!-- Form -->
             <div class="card shadow-sm border-0">
                 <div class="card-body p-4">
 
@@ -51,7 +48,6 @@
                                     @enderror
                                 </div>
 
-                                <!-- Proizvod -->
                                 <div class="mb-4">
                                     <label class="form-label fw-bold">Proizvod *</label>
                                     <select name="proizvod_id" class="form-select form-select-lg" required>
@@ -64,7 +60,6 @@
                                     </select>
                                 </div>
 
-                                <!-- Vrsta čokolade -->
                                 <div class="mb-4">
                                     <label class="form-label fw-bold">Vrsta čokolade *</label>
                                     <select name="vrsta_cokolade_id" class="form-select form-select-lg" required>
@@ -81,7 +76,6 @@
 
                             <div class="col-md-6">
 
-                                <!-- Datum početka -->
                                 <div class="mb-4">
                                     <label class="form-label fw-bold">Datum početka *</label>
                                     <input type="date" name="datum_pocetka" 
@@ -89,7 +83,6 @@
                                            value="{{ old('datum_pocetka', $proces->datum_pocetka) }}" required>
                                 </div>
 
-                                <!-- Datum završetka -->
                                 <div class="mb-4">
                                     <label class="form-label fw-bold">Datum završetka</label>
                                     <input type="date" name="datum_zavrsetka" 
@@ -97,20 +90,19 @@
                                            value="{{ old('datum_zavrsetka', $proces->datum_zavrsetka) }}">
                                 </div>
 
-                                <!-- Status -->
                                 <div class="mb-4">
                                     <label class="form-label fw-bold">Status *</label>
                                     <select name="status" class="form-select form-select-lg" required>
                                         <option value="planiran" {{ old('status', $proces->status) == 'planiran' ? 'selected' : '' }}>Planirano</option>
                                         <option value="u_toku" {{ old('status', $proces->status) == 'u_toku' ? 'selected' : '' }}>U toku</option>
-                                        <option value="zavrseno" {{ old('status', $proces->status) == 'zavrseno' ? 'selected' : '' }}>Završeno</option>
+                                        <option value="zavrsen" {{ old('status', $proces->status) == 'zavrsen' ? 'selected' : '' }}>Završeno</option>
+                                        <option value="otkazan" {{ old('status', $proces->status) == 'otkazan' ? 'selected' : '' }}>Otkažano</option>
                                     </select>
                                 </div>
 
                             </div>
                         </div>
 
-                        <!-- Količina i ukupna cena -->
                         <div class="row">
                             <div class="col-md-6 mb-4">
                                 <label class="form-label fw-bold">Količina (kom)</label>
@@ -129,7 +121,7 @@
 
                         <div class="d-flex justify-content-between mt-5 pt-4 border-top">
                             <a href="{{ route('admin.proizvodni-procesi.index') }}" class="btn btn-outline-dark btn-lg">⬅ Nazad</a>
-                            <button type="submit" class="btn btn-warning btn-lg px-5">💾 Sačuvaj izmene</button>
+                            <button type="submit" class="btn btn-warning btn-lg px-5">Sačuvaj izmene</button>
                         </div>
 
                     </form>

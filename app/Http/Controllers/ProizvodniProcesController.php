@@ -7,17 +7,18 @@ use App\Models\Proizvod;
 use App\Models\VrstaCokolade;
 use App\Models\Sirovina;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class ProizvodniProcesController extends Controller
 {
-    // -------- JAVNE METODE --------
-
+    // JAVNE METODE
     public function indexPublic()
     {
         $procesi = ProizvodniProces::with(['proizvod', 'vrstaCokolade'])
             ->where('status', 'zavrsen')
             ->orderBy('datum_zavrsetka', 'desc')
             ->paginate(10);
+
         return view('proizvodni-procesi.index', compact('procesi'));
     }
 
@@ -27,8 +28,7 @@ class ProizvodniProcesController extends Controller
         return view('proizvodni-procesi.show', compact('proces'));
     }
 
-    // -------- ADMIN METODE --------
-
+    // ADMIN METODE
     public function index()
     {
         $procesi = ProizvodniProces::with(['proizvod', 'vrstaCokolade'])->paginate(10);
@@ -47,15 +47,18 @@ class ProizvodniProcesController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'broj_serije' => 'required|string|max:50|unique:proizvodni_proces,broj_serije',
             'proizvod_id' => 'required|exists:proizvods,id',
             'vrsta_cokolade_id' => 'required|exists:vrsta_cokolades,id',
             'datum_pocetka' => 'required|date',
-            'datum_zavrsetka' => 'nullable|date|after:datum_pocetka',
-            'status' => 'required|in:planiran,u_toku,zavrseno',
+            'datum_zavrsetka' => 'nullable|date|after_or_equal:datum_pocetka',
+            'status' => 'required|in:planiran,u_toku,zavrsen,otkazan',
             'kolicina_proizvoda' => 'required|integer|min:1',
             'ukupna_cena' => 'nullable|numeric|min:0',
+            'napomena' => 'nullable|string|max:500',
         ]);
+
+        // Generiši jedinstveni broj serije
+        $validated['broj_serije'] = 'SER-' . Str::padLeft((ProizvodniProces::max('id') ?? 0) + 1, 3, '0');
 
         ProizvodniProces::create($validated);
 
@@ -82,9 +85,11 @@ class ProizvodniProcesController extends Controller
             'proizvod_id' => 'required|exists:proizvods,id',
             'vrsta_cokolade_id' => 'required|exists:vrsta_cokolades,id',
             'datum_pocetka' => 'required|date',
-            'datum_zavrsetka' => 'nullable|date|after:datum_pocetka',
-            'status' => 'required|in:planiran,u_toku,zavrseno',
+            'datum_zavrsetka' => 'nullable|date|after_or_equal:datum_pocetka',
+            'status' => 'required|in:planiran,u_toku,zavrsen,otkazan',
             'kolicina_proizvoda' => 'required|integer|min:1',
+            'ukupna_cena' => 'nullable|numeric|min:0',
+            'napomena' => 'nullable|string|max:500',
         ]);
 
         $proces->update($validated);

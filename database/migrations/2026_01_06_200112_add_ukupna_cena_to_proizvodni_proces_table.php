@@ -9,15 +9,14 @@ return new class extends Migration
     public function up()
     {
         Schema::table('proizvodni_proces', function (Blueprint $table) {
-            // Додај колону broj_serije
-            $table->string('broj_serije', 50)->unique()->after('id');
+            $table->decimal('ukupna_cena', 10, 2)->nullable()->after('kolicina_proizvoda');
         });
     }
 
     public function down()
     {
         Schema::table('proizvodni_proces', function (Blueprint $table) {
-            $table->dropColumn('broj_serije');
+            $table->dropColumn('ukupna_cena');
         });
     }
 };
