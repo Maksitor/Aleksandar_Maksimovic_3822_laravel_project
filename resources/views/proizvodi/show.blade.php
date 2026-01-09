@@ -6,7 +6,6 @@
 <div class="container my-5">
     <div class="row align-items-center">
         
-        <!-- Slika proizvoda -->
         <div class="col-md-6 text-center mb-4 mb-md-0">
             @if($proizvod->slika)
                 <img 
@@ -24,7 +23,6 @@
             @endif
         </div>
 
-        <!-- Podaci o proizvodu -->
         <div class="col-md-6">
             <h2 class="mb-3" style="color: var(--primary-brown);">
                 {{ $proizvod->naziv }}

@@ -6,7 +6,6 @@
 <div class="container py-4">
     <div class="row">
         <div class="col-12">
-            <!-- Breadcrumb -->
             <nav aria-label="breadcrumb" class="mb-4">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="{{ route('admin.index') }}">Admin Panel</a></li>
@@ -15,7 +14,6 @@
                 </ol>
             </nav>
 
-            <!-- Header card -->
             <div class="card shadow-sm border-0 mb-4">
                 <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center py-3">
                     <h4 class="mb-0">
@@ -28,9 +26,7 @@
                 </div>
             </div>
 
-            <!-- Main content -->
             <div class="row">
-                <!-- Left column - Basic Info -->
                 <div class="col-md-6 mb-4">
                     <div class="card h-100 shadow-sm border-0">
                         <div class="card-header bg-light">
@@ -82,7 +78,6 @@
                     </div>
                 </div>
 
-                <!-- Right column - Timeline & Quantities -->
                 <div class="col-md-6 mb-4">
                     <div class="card h-100 shadow-sm border-0">
                         <div class="card-header bg-light">
@@ -144,7 +139,6 @@
                 </div>
             </div>
 
-            <!-- Duration calculation -->
             @if($proces->datum_zavrsetka)
             <div class="row mb-4">
                 <div class="col-12">
@@ -195,7 +189,6 @@
             </div>
             @endif
 
-            <!-- Action buttons -->
             <div class="card shadow-sm border-0 mt-4">
                 <div class="card-body">
                     <div class="d-flex justify-content-between">
@@ -223,7 +216,6 @@
                 </div>
             </div>
 
-            <!-- Additional info if available -->
             @if($proces->napomene)
             <div class="card shadow-sm border-0 mt-4">
                 <div class="card-header bg-light">

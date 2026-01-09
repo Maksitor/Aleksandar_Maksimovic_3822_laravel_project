@@ -12,7 +12,6 @@
         
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav ms-auto align-items-center">
-                <!-- JAVNI LINKOVI -->
                 <li class="nav-item">
                     <a class="nav-link {{ request()->is('/') ? 'active' : '' }}" href="/">
                         <i class="fas fa-home me-1"></i> Pocetna
@@ -37,7 +36,6 @@
                     @endif
                 </li>
 
-                <!-- ADMIN PANEL (SAMO ADMIN) -->
                 @auth
                     @if(auth()->user()->role === 'admin')
                         <li class="nav-item">
@@ -48,7 +46,6 @@
                     @endif
                 @endauth
 
-                <!-- GOST LOGIN / REGISTER -->
                 @guest
                     <li class="nav-item ms-2">
                         <a class="btn btn-outline-light btn-sm" href="{{ route('login') }}">
@@ -62,7 +59,6 @@
                     </li>
                 @endguest
 
-                <!-- LOGOVANI KORISNIK -->
                 @auth
                     <li class="nav-item dropdown ms-3">
                         <a class="nav-link dropdown-toggle d-flex align-items-center" href="#" id="userDropdown" role="button" data-bs-toggle="dropdown">
